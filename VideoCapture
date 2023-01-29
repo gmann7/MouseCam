@@ -1,0 +1,28 @@
+import sys
+import numpy as np
+import time
+import autopy
+import cv2
+
+widhtCam = 640
+heightCam = 480
+
+#Connect to Video Capture device (webcam or virtual cam)
+cap = cv2.VideoCapture(0)
+
+cap.set(3,widhtCam)
+cap.set(4,heightCam)
+
+while True:
+    success,img = cap.read()
+    print(success)
+    #Show image
+    cv2.imshow("Cam", img)
+    #Check wheter q has been hit and stops the loop
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows
+
+    
