@@ -36,6 +36,6 @@ class handDetector():
                 PosList.append([id, cx, cy])
                 
                 if draw :
-                    cv2.circle(img, (cx,cy), 10, (255,255,255), cv2.FILLED)
+                    cv2.circle(img, (cx,cy), 7, (0,208,36), cv2.FILLED)
             
         return PosList

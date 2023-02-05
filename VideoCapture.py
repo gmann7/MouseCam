@@ -16,16 +16,21 @@ cap.set(4,heightCam)
 
 while True:
     success,img = cap.read()
-    print(success)
+    #print(success)
     img = detector.findHands(img)
     lmlist = detector.findPosition(img)
 
-    #Get tip of the index finger  
+    #Get fingers info  
+    if(len(lmlist)!=0):
+        x1,y1 = lmlist[8][1:] #index finger
+        x2,y2 = lmlist[12][1:] #middle finger
+
+        print(x1,y1,x2,y2)  
 
     #Check which finger is up
     
     #Check if finger is moving
-        #convert coordinates into position.
+        #convert coordinates into p sition.
 
     #Normalize values
 
