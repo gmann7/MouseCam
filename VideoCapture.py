@@ -18,17 +18,16 @@ while True:
     success,img = cap.read()
     #print(success)
     img = detector.findHands(img)
-    lmlist = detector.findPosition(img)
-
+    lmList = detector.findPosition(img)
+    
     #Get fingers info  
-    if(len(lmlist)!=0):
-        x1,y1 = lmlist[8][1:] #index finger
-        x2,y2 = lmlist[12][1:] #middle finger
-
-        print(x1,y1,x2,y2)  
+    if(len(lmList)!=0):
+        x1,y1 = lmList[8][1:] #index finger
+        x2,y2 = lmList[12][1:] #middle finger 
 
     #Check which finger is up
-    
+    fingers = detector.fingersUp(lmList)
+    print(fingers)
     #Check if finger is moving
         #convert coordinates into p sition.
 
