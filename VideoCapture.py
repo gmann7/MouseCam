@@ -3,17 +3,20 @@ import numpy as np
 import time
 import cv2
 import HandTrackingModule as htm
+import autopy
 
-widhtCam = 640
-heightCam = 480
+wCam = 640
+hCam = 480
 pTime = 0
 detector = htm.handDetector(maxHands=1)
 #Connect to Video Capture device (webcam or virtual cam)
 cap = cv2.VideoCapture(1)
 
-cap.set(3,widhtCam)
-cap.set(4,heightCam)
+cap.set(3,wCam)
+cap.set(4,hCam)
 
+wScreen, hScreen = autopy.screen.size()
+print(wScreen, hScreen)
 while True:
     success,img = cap.read()
     #print(success)
@@ -29,11 +32,14 @@ while True:
     fingers = detector.fingersUp(lmList)
     print(fingers)
     #Check if finger is moving
-        #convert coordinates into p sition.
-
-    #Normalize values
-
-    #Move Mouse
+    if detector.result.multi_hand_landmarks:
+        if fingers[1]==1 and fingers[2]==0:
+            #convert coordinates into position.
+            x3 = np.interp(x1, (0,wCam),(0,wScreen))
+            y3 = np.interp(y1, (0,hCam),(0,hScreen))
+            #Normalize values
+            #Move Mouse
+            autopy.mouse.move(wScreen-x3,y3)
 
     #Check if in clicking mode
     #Find distance between fingers and click mouse if so
