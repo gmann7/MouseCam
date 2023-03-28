@@ -7,6 +7,7 @@ import autopy
 
 wCam = 640
 hCam = 480
+frameReduction = 100
 pTime = 0
 detector = htm.handDetector(maxHands=1)
 #Connect to Video Capture device (webcam or virtual cam)
@@ -31,17 +32,23 @@ while True:
     #Check which finger is up
     fingers = detector.fingersUp(lmList)
     print(fingers)
+    cv2.rectangle(img,(frameReduction,frameReduction),(wCam-frameReduction, hCam-frameReduction),(255,0,0),2)
     #Check if finger is moving
     if detector.result.multi_hand_landmarks:
         if fingers[1]==1 and fingers[2]==0:
             #convert coordinates into position.
-            x3 = np.interp(x1, (0,wCam),(0,wScreen))
-            y3 = np.interp(y1, (0,hCam),(0,hScreen))
+            x3 = np.interp(x1, (frameReduction,wCam-frameReduction),(0,wScreen))
+            y3 = np.interp(y1, (frameReduction,hCam-frameReduction),(0,hScreen))
             #Normalize values
             #Move Mouse
             autopy.mouse.move(wScreen-x3,y3)
+            cv2.circle(img,(x1,y1),15, (255,0,255),cv2.FILLED);
 
-    #Check if in clicking mode
+    #Check if in clicking mode (doing index and middle for now, but should be index and thumb becuase i said so)
+    if detector.result.multi_hand_landmarks:
+        if fingers[1]==1 and fingers[2]==1:
+            length, img, _ = detector.findDistance(8,12,img)
+            print(length)
     #Find distance between fingers and click mouse if so
 
     #Show Frame Rate
