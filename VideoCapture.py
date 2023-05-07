@@ -4,11 +4,15 @@ import time
 import cv2
 import HandTrackingModule as htm
 import autopy
+from autopy.mouse import Button
 
 wCam = 640
 hCam = 480
 frameReduction = 100
 pTime = 0
+pLocX,pLocY = 0,0
+cLocX,cLocY = 0,0
+smootheningVal = 5
 detector = htm.handDetector(maxHands=1)
 #Connect to Video Capture device (webcam or virtual cam)
 cap = cv2.VideoCapture(1)
@@ -40,16 +44,28 @@ while True:
             x3 = np.interp(x1, (frameReduction,wCam-frameReduction),(0,wScreen))
             y3 = np.interp(y1, (frameReduction,hCam-frameReduction),(0,hScreen))
             #Normalize values
+            cLocX = pLocX + (x3-pLocX)/smootheningVal
+            cLocY = pLocY + (y3-pLocY)/smootheningVal
             #Move Mouse
-            autopy.mouse.move(wScreen-x3,y3)
-            cv2.circle(img,(x1,y1),15, (255,0,255),cv2.FILLED);
+            autopy.mouse.move(wScreen - cLocX,cLocY)
+            cv2.circle(img,(x1,y1),15, (255,0,255),cv2.FILLED)
+            pLocX,pLocY = cLocX,cLocY
 
     #Check if in clicking mode (doing index and middle for now, but should be index and thumb becuase i said so)
+
     if detector.result.multi_hand_landmarks:
         if fingers[1]==1 and fingers[2]==1:
-            length, img, _ = detector.findDistance(8,12,img)
-            print(length)
-    #Find distance between fingers and click mouse if so
+            distance, img, lineInfo = detector.findDistance(lmList,8,12,img)
+            print(distance)
+    #Find distance between fingers and click mouse if they are up
+            if(distance<30):
+                autopy.mouse.toggle(Button.LEFT,True)
+                cv2.circle(img,(lineInfo[4],lineInfo[5]),15, (0,255,0),cv2.FILLED)
+            if(distance>30):
+                autopy.mouse.toggle(Button.LEFT,False)
+        if fingers[1]==1 and fingers[2]==0:
+                autopy.mouse.toggle(Button.LEFT,False)
+
 
     #Show Frame Rate
     cTime = time.time()
