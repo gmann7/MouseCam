@@ -13,7 +13,7 @@ This Python program allows you to control your computer's mouse pointer using ha
 - [x] **Cross-platform:** The program should work on Windows, macOS, and Linux, as long as you have Python and the necessary libraries installed.
 
 ## Getting Started
-### Prerequisites
+### Requirements
 - Python 3.x
 - OpenCV (for webcam access)
 - NumPy (for numerical operations)
