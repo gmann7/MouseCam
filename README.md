@@ -16,8 +16,9 @@ This Python program allows you to control your computer's mouse pointer using ha
 ### Requirements
 - Python 3.x
 - OpenCV (for webcam access)
+- Mediapipe (for hand recognition and ML models)
 - NumPy (for numerical operations)
-- PyAutoGUI (for controlling the mouse)
+- AutoPy (for controlling the mouse)
 
 ### Installation
 1. Clone this repository to your local machine:
