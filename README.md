@@ -2,13 +2,14 @@
 ## Overview
 This Python program allows you to control your computer's mouse pointer using hand gestures captured by a webcam. By pointing your index finger upwards, you can move the mouse pointer, and by lifting both the index and middle fingers while moving them closer together, you can simulate a mouse click.
 
-![Demo](demo_gif_1.gif)
+![Demo](https://github.com/gmann7/MouseCam/assets/55709373/a479675b-9595-46dc-968a-07ad1001373d)
+
 
 ## Features
 - [x] **Real-time Hand Gesture Recognition:** The program uses computer vision techniques to recognize and track your hand in real-time through your webcam feed.
 - [x] **Mouse Pointer Control:** Point your index finger upwards to control the movement of the mouse pointer on the screen.
 - [x] **Mouse Click Simulation:** Lift both your index and middle fingers while moving them closer together to simulate a mouse click action.
-- [] **TODO: Customizable Parameters:** You can adjust various parameters, such as sensitivity and gesture recognition thresholds, to suit your preferences.
+- [ ] **TODO: Customizable Parameters:** You can adjust various parameters, such as sensitivity and gesture recognition thresholds, to suit your preferences.
 - [x] **Cross-platform:** The program should work on Windows, macOS, and Linux, as long as you have Python and the necessary libraries installed.
 
 ## Getting Started
